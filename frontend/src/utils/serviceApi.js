@@ -1,11 +1,13 @@
 import { cleanMarkdownText } from './textCleaner';
 
-const API_URL = "http://localhost:5000/ask";
+import { cleanMarkdownText } from './textCleaner';
 
-// Send question to backend API
+// Use environment variable or fallback to localhost
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export const sendQuestionToAPI = async (question, hasImage = false) => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/ask`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
@@ -20,12 +22,14 @@ export const sendQuestionToAPI = async (question, hasImage = false) => {
       answer: cleanMarkdownText(data.answer)
     };
   } catch (error) {
+    console.error('API Error:', error);
     return {
       success: false,
       error: error.message
     };
   }
 };
+
 
 // ResponsiveVoice Text-to-Speech (100% FREE)
 export const speakText = (text, languageCode) => {
