@@ -88,11 +88,11 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve React frontend
+// Serve React frontend static files
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-// Fix for Express 5 wildcard
-app.get("/*", (req, res) => {
+// Catch-all route for React (Express 5 compatible)
+app.get("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
