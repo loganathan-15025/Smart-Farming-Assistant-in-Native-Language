@@ -11,7 +11,7 @@ const corsOptions = {
   origin: [
     "http://localhost:3000", // Local development
     "https://smart-farming-assistant-in-native.onrender.com", // Backend URL
-    // Add your ACTUAL frontend URL here when you deploy it
+    "https://smart-farming-assistant-xm95.onrender.com"// Add your ACTUAL frontend URL here when you deploy it
   ],
   credentials: true,
   optionsSuccessStatus: 200,
