@@ -46,8 +46,8 @@ app.post("/ask", async (req, res) => {
     const apiKey = process.env.OPENROUTER_API_KEY;
     const modelName = "deepseek/deepseek-chat";
 
-    console.log(`Question: ${question}`); // Fixed: Changed from console.log` to console.log(
-    console.log(`API Key present: ${apiKey ? "Yes" : "No"}`); // Fixed
+    console.log(`Question: ${question}`); 
+    console.log(`API Key present: ${apiKey ? "Yes" : "No"}`); 
 
     const response = await fetch(apiUrl, {
       method: "POST",
