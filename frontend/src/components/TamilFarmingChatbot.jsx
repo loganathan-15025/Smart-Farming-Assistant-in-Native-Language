@@ -188,12 +188,18 @@ export default function TamilFarmingChatbot() {
       <Header
         isOnline={isOnline}
         language={language}
+        onLanguageChange={(val) => {
+          setLanguage(val);
+          if (isSpeaking) {
+            prewarmVoice(languages[val].code);
+          }
+        }}
         showMenu={showMenu}
         onMenuToggle={() => setShowMenu(!showMenu)}
       />
 
       {/* Weather Bar inside Header wrapper */}
-      <div className="max-w-full mx-auto px-4 w-full flex-shrink-0">
+      <div className="max-w-full mx-auto px-0 sm:px-4 w-full flex-shrink-0">
         <WeatherBar
           weather={weather}
           onDistrictChange={handleDistrictChange}
@@ -201,15 +207,116 @@ export default function TamilFarmingChatbot() {
         />
       </div>
 
+      {/* Mobile liquid glossy background (behind chat) */}
+      <div className="lg:hidden absolute inset-0 -z-10 liquid-container">
+        <div className="liquid-blob blob-a"></div>
+        <div className="liquid-blob blob-b"></div>
+        <div className="liquid-blob blob-c"></div>
+      </div>
+
+      {/* Mobile Menu Overlay - Shows Quick Questions, Tips & Calendar */}
+      {showMenu && (
+        <div
+          className="lg:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowMenu(false)}
+        >
+          <div
+            className="absolute top-0 right-0 w-80 h-full bg-white dark:bg-gray-900 shadow-2xl overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 space-y-4">
+              {/* Close Button */}
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                  மெனு
+                </h2>
+                <button
+                  onClick={() => setShowMenu(false)}
+                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <span className="text-2xl text-gray-600 dark:text-gray-300">
+                    ✕
+                  </span>
+                </button>
+              </div>
+
+              {/* Language Selector (Mobile) */}
+              <div className="mb-2">
+                <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1">
+                  மொழி
+                </label>
+                <select
+                  value={language}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setLanguage(val);
+                    if (isSpeaking) prewarmVoice(languages[val].code);
+                  }}
+                  className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent shadow-soft"
+                >
+                  {Object.entries(languages).map(([key, lang]) => (
+                    <option key={key} value={key}>
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Quick Questions in Mobile Menu */}
+              <div className="mb-4">
+                <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-3 text-sm">
+                  விரைவு கேள்விகள்
+                </h3>
+                <QuickQuestions
+                  onQuickQuestion={(text) => {
+                    handleQuickQuestion(text);
+                    setShowMenu(false);
+                  }}
+                />
+              </div>
+
+              {/* Tips & Calendar Tabs in Mobile Menu */}
+              <div className="mb-4">
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() => setActiveTab("tips")}
+                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all ${
+                      activeTab === "tips"
+                        ? "bg-emerald-500 text-white"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                    }`}
+                  >
+                    💡 குறிப்புகள்
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("calendar")}
+                    className={`flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all ${
+                      activeTab === "calendar"
+                        ? "bg-emerald-500 text-white"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                    }`}
+                  >
+                    📅 நாட்காட்டி
+                  </button>
+                </div>
+                <div className="max-h-[60vh] overflow-y-auto scrollbar-none">
+                  {activeTab === "tips" ? <DailyTips /> : <CropCalendar />}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
-      <div className="max-w-full mx-auto px-4 py-3 flex-1 min-h-0 overflow-hidden w-full flex justify-center items-start relative">
-        {/* Quick Questions - Top Left Corner (Fixed) */}
-        <div className="fixed top-44 left-4 w-72 h-[calc(100vh-192px)] overflow-hidden z-40">
+      <div className="max-w-full mx-auto px-0 sm:px-2 lg:px-4 py-0 sm:py-2 lg:py-3 flex-1 min-h-0 overflow-hidden w-full flex justify-center items-start relative">
+        {/* Quick Questions - Top Left Corner (Fixed) - Hidden on mobile */}
+        <div className="hidden lg:block fixed top-44 left-4 w-72 h-[calc(100vh-192px)] overflow-hidden z-40">
           <QuickQuestions onQuickQuestion={handleQuickQuestion} />
         </div>
 
         {/* Chat Box - Center */}
-        <div className="w-full pl-80 pr-[22rem] h-full flex flex-col min-h-0">
+        <div className="w-full lg:pl-80 lg:pr-[22rem] h-full flex flex-col min-h-0">
           <ChatBox
             messages={messages}
             question={question}
@@ -228,8 +335,8 @@ export default function TamilFarmingChatbot() {
           />
         </div>
 
-        {/* Tips & Calendar - Top Right Corner (Fixed) */}
-        <div className="fixed top-44 right-4 w-80 h-[calc(100vh-192px)] overflow-hidden flex flex-col gap-3 z-40">
+        {/* Tips & Calendar - Top Right Corner (Fixed) - Hidden on mobile */}
+        <div className="hidden lg:flex fixed top-44 right-4 w-80 h-[calc(100vh-192px)] overflow-hidden flex-col gap-3 z-40">
           {/* Tab Switcher */}
           <div className="flex gap-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-xl p-1.5 shadow-soft-lg border border-gray-200/50 dark:border-gray-700/50">
             <button
@@ -255,7 +362,7 @@ export default function TamilFarmingChatbot() {
           </div>
 
           {/* Content */}
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
             {activeTab === "tips" ? <DailyTips /> : <CropCalendar />}
           </div>
         </div>

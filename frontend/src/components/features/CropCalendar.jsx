@@ -35,7 +35,7 @@ const seasonColors = {
 
 export default function CropCalendar() {
   return (
-    <div className="rounded-2xl shadow-soft-lg p-3 bg-gradient-to-b from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col flex-1">
+    <div className="rounded-2xl shadow-soft-lg p-3 bg-gradient-to-b from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col h-full overflow-hidden">
       <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-2.5 flex items-center gap-2 text-sm flex-shrink-0">
         <Calendar className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
         பயிர் நாட்காட்டி

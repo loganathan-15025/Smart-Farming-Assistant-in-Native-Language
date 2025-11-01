@@ -3,11 +3,11 @@ import { farmingTips } from "../../data/farmingTips";
 
 export default function DailyTips() {
   return (
-    <div className="rounded-2xl shadow-lg p-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur border border-black/5 dark:border-white/10">
-      <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-2.5">
+    <div className="rounded-2xl shadow-lg p-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur border border-black/5 dark:border-white/10 flex flex-col h-full overflow-hidden">
+      <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-2.5 flex-shrink-0">
         இன்றைய குறிப்புகள்
       </h3>
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 flex-1 min-h-0 overflow-y-auto pr-1 scrollbar-none">
         {farmingTips.map((tip, idx) => {
           const Icon = tip.icon;
           return (

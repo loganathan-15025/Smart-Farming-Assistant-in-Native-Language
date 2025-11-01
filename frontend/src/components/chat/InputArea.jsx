@@ -21,7 +21,7 @@ export default function InputArea({
   };
 
   return (
-    <div className="border-t border-gray-200/50 dark:border-gray-700/50 p-3 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-emerald-50/50 dark:from-gray-900/50 dark:via-gray-800/30 dark:to-gray-900/50 backdrop-blur-sm">
+    <div className="border-t border-gray-200/50 dark:border-gray-700/50 p-3 bg-white dark:bg-gray-900 lg:bg-gradient-to-r lg:from-emerald-50/50 lg:via-green-50/50 lg:to-emerald-50/50 lg:dark:from-gray-900/50 lg:dark:via-gray-800/30 lg:dark:to-gray-900/50 lg:backdrop-blur-sm">
       <div className="flex items-end gap-2">
         {/* Speaker Toggle */}
         <button
@@ -61,14 +61,14 @@ export default function InputArea({
         </button>
 
         {/* Text Input */}
-        <div className="flex-1 bg-white/95 dark:bg-gray-800/70 rounded-xl shadow-soft dark:shadow-soft-lg flex items-center gap-3 px-4 py-2.5 border border-gray-200/50 dark:border-gray-700/50 focus-within:ring-2 focus-within:ring-emerald-500/50 dark:focus-within:ring-emerald-400/50 focus-within:border-emerald-500/50 dark:focus-within:border-emerald-400/50 transition-all duration-200 backdrop-blur-sm focus-within:shadow-soft-lg">
+        <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl lg:shadow-soft lg:dark:shadow-soft-lg flex items-center gap-3 px-4 py-2.5 border border-gray-200/50 dark:border-gray-700/50 focus-within:ring-2 focus-within:ring-emerald-500/50 dark:focus-within:ring-emerald-400/50 focus-within:border-emerald-500/50 dark:focus-within:border-emerald-400/50 transition-all duration-200 lg:backdrop-blur-sm lg:focus-within:shadow-soft-lg">
           <input
             type="text"
             placeholder="உங்கள் கேள்வியை இங்கே தட்டச்சு செய்யவும்..."
             value={question}
             onChange={(e) => onQuestionChange(e.target.value)}
             onKeyPress={handleKeyPress}
-            className="flex-1 outline-none text-gray-900 dark:text-gray-100 bg-transparent placeholder:text-gray-500 dark:placeholder:text-gray-400 text-sm"
+            className="flex-1 outline-none text-gray-900 dark:text-gray-100 bg-transparent placeholder:text-gray-500 dark:placeholder:text-gray-400 text-[13px] sm:text-sm"
             aria-label="Question input"
           />
 

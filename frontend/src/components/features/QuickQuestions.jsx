@@ -4,7 +4,7 @@ import { quickQuestions } from "../../data/quickQuestions";
 
 export default function QuickQuestions({ onQuickQuestion }) {
   return (
-    <div className="rounded-2xl shadow-lg p-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur border border-black/5 dark:border-white/10 flex flex-col overflow-hidden h-full">
+    <div className="rounded-2xl shadow-lg p-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur border border-black/5 dark:border-white/10 flex flex-col overflow-hidden h-full max-h-[40vh] sm:max-h-none">
       <h3 className="font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2 flex-shrink-0">
         <MessageSquare className="w-4 h-4 text-green-600" />
         விரைவு கேள்விகள்

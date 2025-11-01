@@ -8,9 +8,9 @@ export default function MessageBubble({ message }) {
       } animate-fade-in`}
     >
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-2.5 transition-all duration-200 ${
+        className={`max-w-[80%] rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-200 ${
           message.type === "user"
-            ? "bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-br-none shadow-soft-lg hover:shadow-soft-xl hover:scale-[1.02]"
+            ? "bg-gradient-to-br from-emerald-700 via-emerald-800 to-emerald-900 text-white rounded-br-none shadow-soft-lg ring-1 ring-emerald-400/20 dark:ring-emerald-300/10 hover:shadow-soft-xl hover:brightness-110 hover:scale-[1.01]"
             : "bg-gradient-to-br from-gray-100/95 to-gray-200/95 text-gray-800 rounded-bl-none dark:from-gray-800/95 dark:to-gray-700/95 dark:text-gray-100 shadow-soft hover:shadow-soft-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:scale-[1.02]"
         }`}
       >
@@ -21,7 +21,7 @@ export default function MessageBubble({ message }) {
             className="w-full rounded-xl mb-2 max-w-xs shadow-soft transition-all duration-200 hover:scale-105"
           />
         )}
-        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+        <p className="text-[13px] sm:text-sm leading-snug sm:leading-relaxed whitespace-pre-wrap">
           {message.text}
         </p>
         {message.offline && (
@@ -32,7 +32,7 @@ export default function MessageBubble({ message }) {
         <p
           className={`text-xs mt-2.5 font-medium ${
             message.type === "user"
-              ? "text-emerald-100"
+              ? "text-emerald-200"
               : "text-gray-500 dark:text-gray-400"
           }`}
         >
