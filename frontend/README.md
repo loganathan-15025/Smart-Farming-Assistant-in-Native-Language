@@ -1,3 +1,9 @@
+## Modern UI and Dark Mode
+
+- New glassy cards, rounded corners, and smooth gradients for a fresher look.
+- Dark mode supported via Tailwind (class strategy). Toggle using the sun/moon button in the header.
+- Preference persists in localStorage and respects your OS setting on first load.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

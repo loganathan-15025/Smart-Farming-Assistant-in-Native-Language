@@ -1,11 +1,11 @@
-import React from 'react';
-import { X } from 'lucide-react';
+import React from "react";
+import { X } from "lucide-react";
 
 export default function ImageUpload({ imagePreview, onRemove }) {
   if (!imagePreview) return null;
 
   return (
-    <div className="px-4 py-2 border-t border-gray-200 bg-gray-50">
+    <div className="px-4 py-2 border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-gray-900/40">
       <div className="relative inline-block">
         <img src={imagePreview} alt="Preview" className="h-20 rounded-lg" />
         <button

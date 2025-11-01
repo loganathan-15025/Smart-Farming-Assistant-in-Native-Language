@@ -4,5 +4,37 @@
 
 /* Custom Styles */
 body {
-  font-family: 'Noto Sans Tamil', sans-serif;
+  font-family: "Noto Sans Tamil", sans-serif;
+}
+
+/* Scrollbar styling utilities */
+/* Hide scrollbars but keep scrolling */
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Soft, minimal scrollbars (use when you want visible but subtle) */
+.scrollbar-soft {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent; /* thumb track */
+}
+.scrollbar-soft::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-soft::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-soft::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.35); /* slate-500-ish */
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.dark .scrollbar-soft::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.35); /* slate-400-ish */
 }
