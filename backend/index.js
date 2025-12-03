@@ -45,7 +45,7 @@ app.post("/ask", async (req, res) => {
 
     const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
     const apiKey = process.env.OPENROUTER_API_KEY;
-    const modelName = "deepseek/deepseek-chat";
+    const modelName = "tngtech/deepseek-r1t2-chimera:free";
 
     console.log(`Question: ${question}`);
     console.log(`API Key present: ${apiKey ? "Yes" : "No"}`);
