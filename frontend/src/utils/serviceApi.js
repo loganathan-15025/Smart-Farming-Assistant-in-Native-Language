@@ -69,6 +69,9 @@ const stripEmojis = (input = "") => {
       .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, "") // Regional Indicator Symbols
       // Remove variation selectors and zero-width joiners
       .replace(/[\u200D\uFE0E\uFE0F]/g, "")
+      // Remove common symbols and punctuation
+      .replace(/[#*_~`[\]{}()<>|\\]/g, " ") // Markdown and special chars
+      .replace(/[:;,.\-—!?'"]/g, " ") // Punctuation that causes pauses
       // Collapse extra spaces left by removals
       .replace(/\s{2,}/g, " ")
       .trim()
@@ -132,7 +135,7 @@ export const speakText = (text, languageCode) => {
   const spokenText = stripEmojis(cleanMarkdownText(text));
 
   window.responsiveVoice.speak(spokenText, voiceName, {
-    rate: 0.9,
+    rate: 1.2,
     pitch: 1,
     volume: 1,
     onend: () => console.log("✅ Speech finished"),
