@@ -71,14 +71,15 @@ const cleanTextForSpeech = (input = "") => {
       .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, "") // Regional Indicator Symbols
       // Remove variation selectors and zero-width joiners
       .replace(/[\u200D\uFE0E\uFE0F]/g, "")
-      // Remove parentheses
-      .replace(/\(/g, " ")
-      .replace(/\)/g, " ")
+      // Replace parentheses with period for pause (won't be read aloud)
+      .replace(/\(/g, ".")
+      .replace(/\)/g, ".")
       // Replace comma with space for micro-pause (natural word boundary)
       // instead of the longer default comma pause
       .replace(/,/g, " ")
-      // Keep colons and semicolons for natural pauses in speech
-      // (ResponsiveVoice will pause at these punctuation marks)
+      // Remove colons and semicolons (they get read aloud in Tamil)
+      .replace(/:/g, ".")
+      .replace(/;/g, ".")
       // Remove other markdown symbols
       .replace(/[#*_~`\[\]{}<>|\\@&^%$"'\-—]/g, " ")
       // Collapse extra spaces left by removals
