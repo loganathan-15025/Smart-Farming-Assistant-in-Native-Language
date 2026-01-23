@@ -54,10 +54,12 @@ export const sendQuestionToAPI = async (question, hasImage = false) => {
 };
 
 // Rest of your speakText code...
-// Remove emoji and special joiners from spoken text while keeping UI intact
-const stripEmojis = (input = "") => {
+// Clean text for natural speech - remove emojis and symbols but keep natural flow
+const cleanTextForSpeech = (input = "") => {
   return (
     input
+      // Remove line breaks - replace with space so speech continues smoothly
+      .replace(/\r?\n/g, " ")
       // Remove emoji ranges
       .replace(/[\u{1F600}-\u{1F64F}]/gu, "") // Emoticons
       .replace(/[\u{1F300}-\u{1F5FF}]/gu, "") // Misc Symbols and Pictographs
@@ -69,9 +71,16 @@ const stripEmojis = (input = "") => {
       .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, "") // Regional Indicator Symbols
       // Remove variation selectors and zero-width joiners
       .replace(/[\u200D\uFE0E\uFE0F]/g, "")
-      // Remove common symbols and punctuation
-      .replace(/[#*_~`[\]{}()<>|\\]/g, " ") // Markdown and special chars
-      .replace(/[:;,.\-—!?'"]/g, " ") // Punctuation that causes pauses
+      // Remove parentheses
+      .replace(/\(/g, " ")
+      .replace(/\)/g, " ")
+      // Replace comma with space for micro-pause (natural word boundary)
+      // instead of the longer default comma pause
+      .replace(/,/g, " ")
+      // Keep colons and semicolons for natural pauses in speech
+      // (ResponsiveVoice will pause at these punctuation marks)
+      // Remove other markdown symbols
+      .replace(/[#*_~`\[\]{}<>|\\@&^%$"'\-—]/g, " ")
       // Collapse extra spaces left by removals
       .replace(/\s{2,}/g, " ")
       .trim()
@@ -132,10 +141,10 @@ export const speakText = (text, languageCode) => {
   const voiceName = voiceMap[languageCode] || "Tamil Female";
 
   // Clean markdown artifacts and strip emojis from the spoken content only
-  const spokenText = stripEmojis(cleanMarkdownText(text));
+  const spokenText = cleanTextForSpeech(cleanMarkdownText(text));
 
   window.responsiveVoice.speak(spokenText, voiceName, {
-    rate: 1.2,
+    rate: 0.9,
     pitch: 1,
     volume: 1,
     onend: () => console.log("✅ Speech finished"),
