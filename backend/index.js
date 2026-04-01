@@ -45,9 +45,7 @@ app.post("/ask", async (req, res) => {
 
     const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
     const apiKey = process.env.OPENROUTER_API_KEY;
-    //const modelName = "tngtech/deepseek-r1t2-chimera:free";
-    const modelName = "google/gemma-3-27b-it:free";
-
+    const modelName = "qwen/qwen3.6-plus-preview:free";
 
     console.log(`Question: ${question}`);
     console.log(`API Key present: ${apiKey ? "Yes" : "No"}`);
@@ -64,13 +62,10 @@ app.post("/ask", async (req, res) => {
         model: modelName,
         messages: [
           {
-            role: "system",
-            content:
-              "நீங்கள் ஒரு விவசாய உதவியாளர். எப்போதும் தமிழில் மட்டுமே பதில் அளிக்கவும். You are a farming assistant. Always respond ONLY in Tamil language.",
-          },
-          {
             role: "user",
-            content: question,
+            content: `நீங்கள் ஒரு விவசாய உதவியாளர். எப்போதும் தமிழில் மட்டுமே பதில் அளிக்கவும்.
+    
+கேள்வி: ${question}`,
           },
         ],
       }),
@@ -116,7 +111,7 @@ app.get("/weather", async (req, res) => {
 
     const apiKey = process.env.OPENWEATHER_API_KEY;
     console.log(
-      `API Key present: ${apiKey ? "Yes" : "No"}, Length: ${apiKey?.length}`
+      `API Key present: ${apiKey ? "Yes" : "No"}, Length: ${apiKey?.length}`,
     );
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ta`;
@@ -142,7 +137,7 @@ app.get("/weather", async (req, res) => {
       temp: Math.round(data.main.temp),
       humidity: data.main.humidity,
       condition: translateWeatherToTamil(
-        data.weather[0].description || "தெளிவான வானம்"
+        data.weather[0].description || "தெளிவான வானம்",
       ),
       icon: getWeatherEmoji(data.weather[0].id),
       windSpeed: Math.round(data.wind.speed * 10) / 10,
