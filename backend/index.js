@@ -45,7 +45,7 @@ app.post("/ask", async (req, res) => {
 
     const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
     const apiKey = process.env.OPENROUTER_API_KEY;
-    const modelName = "qwen/qwen3.6-plus-preview:free";
+    const modelName = "google/gemma-4-26b-a4b-it:free";
 
     console.log(`Question: ${question}`);
     console.log(`API Key present: ${apiKey ? "Yes" : "No"}`);
@@ -63,8 +63,8 @@ app.post("/ask", async (req, res) => {
         messages: [
           {
             role: "user",
-            content: `நீங்கள் ஒரு விவசாய உதவியாளர். எப்போதும் தமிழில் மட்டுமே பதில் அளிக்கவும்.
-    
+            content: `நீங்கள் ஒரு விவசாய உதவியாளர். விரிவாகவும் தெளிவாகவும் தமிழில் மட்டும் பதில் அளிக்கவும்.
+
 கேள்வி: ${question}`,
           },
         ],
@@ -75,7 +75,7 @@ app.post("/ask", async (req, res) => {
     console.log(`Response status: ${response.status}`); // Fixed
 
     if (!response.ok) {
-      console.error(`DeepSeek API error:`, JSON.stringify(data, null, 2)); // Fixed
+      console.error(`OpenRouter API error:`, JSON.stringify(data, null, 2)); // Fixed
       return res.status(500).json({
         answer: "பின்தளத்தில் பிரச்சனை ஏற்பட்டது",
         error: data.error?.message || data.message || "Unknown error",
